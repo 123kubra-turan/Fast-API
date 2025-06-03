@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stok_Kontrol_V2", "Stok_Kontrol_V2\Stok_Kontrol_V2.csproj", "{F4F0D8BF-DBF8-495B-A2B8-6BDB6D398838}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4F0D8BF-DBF8-495B-A2B8-6BDB6D398838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4F0D8BF-DBF8-495B-A2B8-6BDB6D398838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4F0D8BF-DBF8-495B-A2B8-6BDB6D398838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4F0D8BF-DBF8-495B-A2B8-6BDB6D398838}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCCACFE2-B5F6-4E74-934D-4EF21CADE423}
+	EndGlobalSection
+EndGlobal
