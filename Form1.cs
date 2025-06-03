@@ -1,5 +1,7 @@
-﻿using System;
+using System;
+using System.Configuration;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -7,224 +9,211 @@ namespace Stok_Kontrol_V2
 {
     public partial class Form1 : Form
     {
-        private MySqlConnection mySqlConnection;
+        // Bağlantı stringini config'den okuyoruz.
+        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["StokDb"].ConnectionString;
 
         public Form1()
         {
-            InitializeComponent();  // Bu satır InitializeComponent metodunu çağırır.
-
-            string mySqlCon = "server=127.0.0.1;user=root;database=stokkontroldb;password=";
-            mySqlConnection = new MySqlConnection(mySqlCon);
-
-            try
-            {
-                mySqlConnection.Open();
-                MessageBox.Show("Bağlantı başarılı");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                mySqlConnection.Close();
-            }
-
-            VeriYukle(); // DataGridView'i güncelle
+            InitializeComponent();
+            // Form yüklenirken verileri asenkron yükle
+            this.Load += async (s, e) => await VeriYukleAsync();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // Form yükleme olayı burada işlenebilir
-        }
-
-        // Veritabanından verileri yüklemek için metod
-        private void VeriYukle()
+        // Veritabanından ürünleri asenkron yükler
+        private async Task VeriYukleAsync()
         {
             try
             {
-                // mySqlConnection.Open(); // Bu satırı kaldırın
-                
-                string query = "SELECT * FROM urunler";
-                MySqlDataAdapter adapter = new MySqlDataAdapter(query, mySqlConnection);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                dataGridView1.DataSource = dt;
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    var query = "SELECT * FROM urunler";
+                    using (var adapter = new MySqlDataAdapter(query, connection))
+                    {
+                        var dt = new DataTable();
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Veri yüklenirken hata oluştu: " + ex.Message);
             }
-            //finally
-            //{
-            // mySqlConnection.Close(); // Bu satırı kaldırın
-            //}
         }
 
-        private void ekle_Click_1(object sender, EventArgs e)
+        // Ürün ekle butonu
+        private async void btnEkle_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO urunler (UrunAdi, Kategori, Miktar, Fiyat, KarOrani) VALUES (@UrunAdi, @Kategori, @Miktar, @Fiyat, @KarOrani)";
+            if (!GirdiKontrol())
+                return;
 
-            using (MySqlCommand cmd = new MySqlCommand(query, mySqlConnection))
+            var query = @"INSERT INTO urunler (UrunAdi, Kategori, Miktar, Fiyat, KarOrani)
+                          VALUES (@UrunAdi, @Kategori, @Miktar, @Fiyat, @KarOrani)";
+            try
             {
-                cmd.Parameters.AddWithValue("@UrunAdi", textBox1.Text);
-                cmd.Parameters.AddWithValue("@Kategori", textBox2.Text);
-                cmd.Parameters.AddWithValue("@Miktar", Convert.ToInt32(textBox3.Text));
-                cmd.Parameters.AddWithValue("@Fiyat", Convert.ToDecimal(textBox4.Text));
-                cmd.Parameters.AddWithValue("@KarOrani", Convert.ToDecimal(textBox5.Text));
-
-                try
+                using (var connection = new MySqlConnection(_connectionString))
+                using (var command = new MySqlCommand(query, connection))
                 {
-                    mySqlConnection.Open();
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Ürün başarıyla eklendi.");
-
-                    // DataGridView'i güncelle
-                    mySqlConnection.Close(); // Bağlantıyı kapatın
-                    VeriYukle(); // Ardından VeriYukle metodunu çağırın
+                    command.Parameters.AddWithValue("@UrunAdi", textBox1.Text.Trim());
+                    command.Parameters.AddWithValue("@Kategori", textBox2.Text.Trim());
+                    command.Parameters.AddWithValue("@Miktar", int.Parse(textBox3.Text));
+                    command.Parameters.AddWithValue("@Fiyat", decimal.Parse(textBox4.Text));
+                    command.Parameters.AddWithValue("@KarOrani", decimal.Parse(textBox5.Text));
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hata: " + ex.Message);
-                }
-                finally
-                {
-                    mySqlConnection.Close();
-                }
+                MessageBox.Show("Ürün başarıyla eklendi.");
+                await VeriYukleAsync();
+                Temizle();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
             }
         }
 
-        private void sil_Click_1(object sender, EventArgs e)
+        // Ürün sil (seçili satırdan)
+        private async void btnSil_Click(object sender, EventArgs e)
         {
-            // DataGridView'den seçili satırın ID'sini al
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Lütfen silinecek ürünü seçin.");
+                return;
+            }
+
             int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["UrunId"].Value);
 
-            string query = "DELETE FROM urunler WHERE Urunid=@UrunId";
-
-            using (MySqlCommand cmd = new MySqlCommand(query, mySqlConnection))
+            var query = "DELETE FROM urunler WHERE UrunId = @UrunId";
+            try
             {
-                cmd.Parameters.AddWithValue("@UrunId", id);
-
-                try
+                using (var connection = new MySqlConnection(_connectionString))
+                using (var command = new MySqlCommand(query, connection))
                 {
-                    mySqlConnection.Open();
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Ürün başarıyla silindi.");
-
-                    // DataGridView'i güncelle
-                    
-                    mySqlConnection.Close(); // Bağlantıyı kapatın
-                    VeriYukle(); // Ardından VeriYukle metodunu çağırın
+                    command.Parameters.AddWithValue("@UrunId", id);
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hata: " + ex.Message);
-                }
-                finally
-                {
-                    mySqlConnection.Close();
-                }
+                MessageBox.Show("Ürün başarıyla silindi.");
+                await VeriYukleAsync();
+                Temizle();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
             }
         }
 
-        private void duzenle_Click_1(object sender, EventArgs e)
+        // Ürün düzenle
+        private async void btnDuzenle_Click(object sender, EventArgs e)
         {
-            // DataGridView'den seçili satırın ID'sini al
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Lütfen düzenlenecek ürünü seçin.");
+                return;
+            }
+            if (!GirdiKontrol())
+                return;
+
             int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["UrunId"].Value);
 
-            string query = "UPDATE urunler SET UrunAdi=@UrunAdi, Kategori=@Kategori, Miktar=@Miktar, Fiyat=@Fiyat, KarOrani=@KarOrani WHERE Urunid=@UrunId";
-
-            using (MySqlCommand cmd = new MySqlCommand(query, mySqlConnection))
+            var query = @"UPDATE urunler SET UrunAdi=@UrunAdi, Kategori=@Kategori, Miktar=@Miktar, Fiyat=@Fiyat, KarOrani=@KarOrani
+                          WHERE UrunId=@UrunId";
+            try
             {
-                cmd.Parameters.AddWithValue("@UrunId", id);
-                cmd.Parameters.AddWithValue("@UrunAdi", textBox1.Text);
-                cmd.Parameters.AddWithValue("@Kategori", textBox2.Text);
-                cmd.Parameters.AddWithValue("@Miktar", Convert.ToInt32(textBox3.Text));
-                cmd.Parameters.AddWithValue("@Fiyat", Convert.ToDecimal(textBox4.Text));
-                cmd.Parameters.AddWithValue("@KarOrani", Convert.ToDecimal(textBox5.Text));
-
-                try
+                using (var connection = new MySqlConnection(_connectionString))
+                using (var command = new MySqlCommand(query, connection))
                 {
-                    mySqlConnection.Open();
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Ürün başarıyla güncellendi.");
-
-                    // DataGridView'i güncelle
-                    mySqlConnection.Close(); // Bağlantıyı kapatın
-                    VeriYukle(); // Ardından VeriYukle metodunu çağırın
+                    command.Parameters.AddWithValue("@UrunAdi", textBox1.Text.Trim());
+                    command.Parameters.AddWithValue("@Kategori", textBox2.Text.Trim());
+                    command.Parameters.AddWithValue("@Miktar", int.Parse(textBox3.Text));
+                    command.Parameters.AddWithValue("@Fiyat", decimal.Parse(textBox4.Text));
+                    command.Parameters.AddWithValue("@KarOrani", decimal.Parse(textBox5.Text));
+                    command.Parameters.AddWithValue("@UrunId", id);
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hata: " + ex.Message);
-                }
-                finally
-                {
-                    mySqlConnection.Close();
-                }
+                MessageBox.Show("Ürün başarıyla güncellendi.");
+                await VeriYukleAsync();
+                Temizle();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
             }
         }
 
+        // Satır tıklanınca textbox'lara değerleri aktar
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Seçili satır indeksini alın
-            int rowIndex = e.RowIndex;
-
-            // Satır indeksi geçerli bir satır olup olmadığını kontrol edin
-            if (rowIndex >= 0)
-            {
-                // Seçili satırdaki hücre değerlerini alın
-                DataGridViewRow selectedRow = dataGridView1.Rows[rowIndex];
-
-                // Her bir TextBox'a uygun hücre değerini atayın
-                textBox1.Text = selectedRow.Cells[1].Value?.ToString();
-                textBox2.Text = selectedRow.Cells[2].Value?.ToString();
-                textBox3.Text = selectedRow.Cells[3].Value?.ToString();
-                textBox4.Text = selectedRow.Cells[4].Value?.ToString();
-                textBox5.Text = selectedRow.Cells[5].Value?.ToString();
-
-                // Ekstra sütunlar varsa, burada ek TextBox'lar için devam edebilirsiniz
-            }
+            if (e.RowIndex < 0) return;
+            var row = dataGridView1.Rows[e.RowIndex];
+            textBox1.Text = row.Cells["UrunAdi"].Value?.ToString() ?? "";
+            textBox2.Text = row.Cells["Kategori"].Value?.ToString() ?? "";
+            textBox3.Text = row.Cells["Miktar"].Value?.ToString() ?? "";
+            textBox4.Text = row.Cells["Fiyat"].Value?.ToString() ?? "";
+            textBox5.Text = row.Cells["KarOrani"].Value?.ToString() ?? "";
         }
 
-        private void textBox6_TextChanged(object sender, EventArgs e)
+        // Arama kutusu değişince arama yap
+        private async void textBox6_TextChanged(object sender, EventArgs e)
         {
-            string searchText = textBox6.Text;
-
-            // Veritabanında arama yap ve sonuçları DataGridView'e doldur
-            SearchDatabase(searchText);
+            await SearchDatabaseAsync(textBox6.Text.Trim());
         }
 
-        private void SearchDatabase(string searchText)
+        // Veritabanında arama (asenkron)
+        private async Task SearchDatabaseAsync(string searchText)
         {
             try
             {
-                mySqlConnection.Open();
-                string query = @"SELECT * FROM urunler
-                                 WHERE UrunAdi LIKE @SearchText
-                                 OR Kategori LIKE @SearchText
-                                 OR KarOrani LIKE @SearchText";
-
-                using (MySqlCommand command = new MySqlCommand(query, mySqlConnection))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    // Arama metni için parametre ekleyin
-                    command.Parameters.AddWithValue("@SearchText", "%" + searchText + "%");
-
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-
-                    // DataGridView'i doldur
-                    dataGridView1.DataSource = dataTable;
+                    await connection.OpenAsync();
+                    var query = @"SELECT * FROM urunler
+                                  WHERE UrunAdi LIKE @SearchText
+                                     OR Kategori LIKE @SearchText
+                                     OR KarOrani LIKE @SearchText";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@SearchText", "%" + searchText + "%");
+                        using (var adapter = new MySqlDataAdapter(command))
+                        {
+                            var dt = new DataTable();
+                            adapter.Fill(dt);
+                            dataGridView1.DataSource = dt;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Arama yapılırken hata oluştu: " + ex.Message);
             }
-            finally
+        }
+
+        // Kullanıcı girişlerini kontrol eden yardımcı fonksiyon
+        private bool GirdiKontrol()
+        {
+            if (string.IsNullOrWhiteSpace(textBox1.Text) ||
+                string.IsNullOrWhiteSpace(textBox2.Text) ||
+                !int.TryParse(textBox3.Text, out _) ||
+                !decimal.TryParse(textBox4.Text, out _) ||
+                !decimal.TryParse(textBox5.Text, out _))
             {
-                mySqlConnection.Close();
+                MessageBox.Show("Lütfen tüm alanları doğru doldurun!");
+                return false;
             }
+            return true;
+        }
+
+        // Formdaki textbox'ları temizler
+        private void Temizle()
+        {
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox5.Clear();
         }
     }
 }
