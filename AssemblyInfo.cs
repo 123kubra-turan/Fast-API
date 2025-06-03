@@ -1,36 +1,30 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
+/// <summary>
+/// Bu dosya, derleme (assembly) meta verilerini içerir.
+/// Proje adı, açıklaması, sürümü, şirket, ürün bilgisi ve COM özellikleri buradan yönetilir.
+/// </summary>
 [assembly: AssemblyTitle("Stok_Kontrol_V2")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Stok ve envanter kontrol uygulaması")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Stok_Kontrol_V2")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCompany("Firma Adı Buraya")]
+[assembly: AssemblyProduct("Stok_Kontrol_V2 - Stok ve Envanter Yönetimi Yazılımı")]
+[assembly: AssemblyCopyright("Copyright © Firma Adı 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible
-// to COM components.  If you need to access a type in this assembly from
-// COM, set the ComVisible attribute to true on that type.
+// Bu assembly'deki türlerin COM bileşenleri tarafından görülmemesini sağlar.
+// Eğer bir türün COM üzerinden erişilmesi gerekirse, ilgili tipe [ComVisible(true)] eklenmelidir.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
+// Bu GUID, eğer proje COM ile kullanılacaksa, typelib kimliği olarak atanır.
 [assembly: Guid("f4f0d8bf-dbf8-495b-a2b8-6bdb6d398838")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
+// Sürüm bilgisi: Ana Sürüm.Minor Sürüm.Yapı Numarası.Revizyon
+// Build ve Revision numaralarını otomatik arttırmak için '*' kullanılabilir: [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// Ek açıklama: Sürüm güncellemelerinde yukarıdaki alanlar düzenlenmelidir.
