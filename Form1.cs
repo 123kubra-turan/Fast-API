@@ -9,17 +9,17 @@ namespace Stok_Kontrol_V2
 {
     public partial class Form1 : Form
     {
-        // Bağlantı stringini config'den okuyoruz.
+        // 1. Bağlantı cümlesi config'den okunuyor
         private readonly string _connectionString = ConfigurationManager.ConnectionStrings["StokDb"].ConnectionString;
 
         public Form1()
         {
             InitializeComponent();
-            // Form yüklenirken verileri asenkron yükle
+            // Form açılırken ürünleri yükle
             this.Load += async (s, e) => await VeriYukleAsync();
         }
 
-        // Veritabanından ürünleri asenkron yükler
+        // 2. Ürünleri yükler (listeleme)
         private async Task VeriYukleAsync()
         {
             try
@@ -42,11 +42,10 @@ namespace Stok_Kontrol_V2
             }
         }
 
-        // Ürün ekle butonu
+        // 3. Ürün ekler
         private async void btnEkle_Click(object sender, EventArgs e)
         {
-            if (!GirdiKontrol())
-                return;
+            if (!GirdiKontrol()) return;
 
             var query = @"INSERT INTO urunler (UrunAdi, Kategori, Miktar, Fiyat, KarOrani)
                           VALUES (@UrunAdi, @Kategori, @Miktar, @Fiyat, @KarOrani)";
@@ -73,7 +72,7 @@ namespace Stok_Kontrol_V2
             }
         }
 
-        // Ürün sil (seçili satırdan)
+        // 4. Ürün siler
         private async void btnSil_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null)
@@ -81,7 +80,6 @@ namespace Stok_Kontrol_V2
                 MessageBox.Show("Lütfen silinecek ürünü seçin.");
                 return;
             }
-
             int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["UrunId"].Value);
 
             var query = "DELETE FROM urunler WHERE UrunId = @UrunId";
@@ -104,7 +102,7 @@ namespace Stok_Kontrol_V2
             }
         }
 
-        // Ürün düzenle
+        // 5. Ürün günceller
         private async void btnDuzenle_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null)
@@ -112,8 +110,7 @@ namespace Stok_Kontrol_V2
                 MessageBox.Show("Lütfen düzenlenecek ürünü seçin.");
                 return;
             }
-            if (!GirdiKontrol())
-                return;
+            if (!GirdiKontrol()) return;
 
             int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["UrunId"].Value);
 
@@ -143,7 +140,7 @@ namespace Stok_Kontrol_V2
             }
         }
 
-        // Satır tıklanınca textbox'lara değerleri aktar
+        // 6. Satır tıklayınca textbox'lara değer aktarır
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -155,13 +152,13 @@ namespace Stok_Kontrol_V2
             textBox5.Text = row.Cells["KarOrani"].Value?.ToString() ?? "";
         }
 
-        // Arama kutusu değişince arama yap
+        // 7. Arama kutusu değişince arama yapar
         private async void textBox6_TextChanged(object sender, EventArgs e)
         {
             await SearchDatabaseAsync(textBox6.Text.Trim());
         }
 
-        // Veritabanında arama (asenkron)
+        // 8. Arama fonksiyonu
         private async Task SearchDatabaseAsync(string searchText)
         {
             try
@@ -170,9 +167,9 @@ namespace Stok_Kontrol_V2
                 {
                     await connection.OpenAsync();
                     var query = @"SELECT * FROM urunler
-                                  WHERE UrunAdi LIKE @SearchText
-                                     OR Kategori LIKE @SearchText
-                                     OR KarOrani LIKE @SearchText";
+                                WHERE UrunAdi LIKE @SearchText
+                                   OR Kategori LIKE @SearchText
+                                   OR KarOrani LIKE @SearchText";
                     using (var command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@SearchText", "%" + searchText + "%");
@@ -191,7 +188,7 @@ namespace Stok_Kontrol_V2
             }
         }
 
-        // Kullanıcı girişlerini kontrol eden yardımcı fonksiyon
+        // 9. Girdi kontrolü (hatalı veri önleme)
         private bool GirdiKontrol()
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text) ||
@@ -206,7 +203,7 @@ namespace Stok_Kontrol_V2
             return true;
         }
 
-        // Formdaki textbox'ları temizler
+        // 10. Form temizleme fonksiyonu
         private void Temizle()
         {
             textBox1.Clear();
