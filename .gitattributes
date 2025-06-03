@@ -1,63 +1,42 @@
 ###############################################################################
-# Set default behavior to automatically normalize line endings.
+# Satır Sonlandırma ve Metin Normalizasyonu
 ###############################################################################
+# Tüm metin dosyalarında satır sonlarını otomatik olarak normalize et
 * text=auto
 
 ###############################################################################
-# Set default behavior for command prompt diff.
-#
-# This is need for earlier builds of msysgit that does not have it on by
-# default for csharp files.
-# Note: This is only used by command line
+# Kod Dosyaları için Diff Davranışı
 ###############################################################################
-#*.cs     diff=csharp
+# C# dosyaları için (isteğe bağlı olarak açabilirsiniz)
+# *.cs diff=csharp
 
 ###############################################################################
-# Set the merge driver for project and solution files
-#
-# Merging from the command prompt will add diff markers to the files if there
-# are conflicts (Merging from VS is not affected by the settings below, in VS
-# the diff markers are never inserted). Diff markers may cause the following 
-# file extensions to fail to load in VS. An alternative would be to treat
-# these files as binary and thus will always conflict and require user
-# intervention with every merge. To do so, just uncomment the entries below
+# Proje ve Çözüm Dosyaları için Merge Davranışı
 ###############################################################################
-#*.sln       merge=binary
-#*.csproj    merge=binary
-#*.vbproj    merge=binary
-#*.vcxproj   merge=binary
-#*.vcproj    merge=binary
-#*.dbproj    merge=binary
-#*.fsproj    merge=binary
-#*.lsproj    merge=binary
-#*.wixproj   merge=binary
-#*.modelproj merge=binary
-#*.sqlproj   merge=binary
-#*.wwaproj   merge=binary
+# Bu dosyaları binary gibi işaretlerseniz, merge sırasında otomatik birleştirme yerine
+# her zaman manuel müdahale istenir. Büyük takımlar için önerilir.
+# *.sln       merge=binary
+# *.csproj    merge=binary
+# *.vbproj    merge=binary
+# *.vcxproj   merge=binary
 
 ###############################################################################
-# behavior for image files
-#
-# image files are treated as binary by default.
+# Görsel Dosyalar
 ###############################################################################
-#*.jpg   binary
-#*.png   binary
-#*.gif   binary
+# Resim dosyalarını binary olarak işaretle (genellikle gereksiz, git zaten çoğunu binary olarak algılar)
+# *.jpg   binary
+# *.png   binary
+# *.gif   binary
 
 ###############################################################################
-# diff behavior for common document formats
-# 
-# Convert binary document formats to text before diffing them. This feature
-# is only available from the command line. Turn it on by uncommenting the 
-# entries below.
+# Ofis ve PDF Belgeleri için Diff Davranışı
 ###############################################################################
-#*.doc   diff=astextplain
-#*.DOC   diff=astextplain
-#*.docx  diff=astextplain
-#*.DOCX  diff=astextplain
-#*.dot   diff=astextplain
-#*.DOT   diff=astextplain
-#*.pdf   diff=astextplain
-#*.PDF   diff=astextplain
-#*.rtf   diff=astextplain
-#*.RTF   diff=astextplain
+# Bu tip dosyaları diff ile düz metne dönüştürmek için (komut satırı için)
+# *.doc   diff=astextplain
+# *.docx  diff=astextplain
+# *.pdf   diff=astextplain
+# *.rtf   diff=astextplain
+
+###############################################################################
+# Projeye özel dosya türleri için buraya ekleme yapabilirsiniz.
+###############################################################################
