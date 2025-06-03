@@ -1,259 +1,273 @@
-/*
- @author  Mehmettilhann
- */
-
 namespace Stok_Kontrol_V2
 {
     partial class Form1
     {
         /// <summary>
-        /// Required designer variable.
+        /// Gerekli designer değişkeni.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Kullanılan kaynakları temizler.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">Yönetilen kaynaklar atılsın mı?</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Tasarımcı desteği için gerekli metot.
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ekle = new System.Windows.Forms.Button();
-            this.sil = new System.Windows.Forms.Button();
-            this.duzenle = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dgvUrunler = new System.Windows.Forms.DataGridView();
+            this.btnEkle = new System.Windows.Forms.Button();
+            this.btnSil = new System.Windows.Forms.Button();
+            this.btnDuzenle = new System.Windows.Forms.Button();
+            this.lblUrunAdi = new System.Windows.Forms.Label();
+            this.lblKategori = new System.Windows.Forms.Label();
+            this.lblMiktar = new System.Windows.Forms.Label();
+            this.lblFiyat = new System.Windows.Forms.Label();
+            this.lblKarOrani = new System.Windows.Forms.Label();
+            this.txtUrunAdi = new System.Windows.Forms.TextBox();
+            this.txtKategori = new System.Windows.Forms.TextBox();
+            this.txtMiktar = new System.Windows.Forms.TextBox();
+            this.txtFiyat = new System.Windows.Forms.TextBox();
+            this.txtKarOrani = new System.Windows.Forms.TextBox();
+            this.txtArama = new System.Windows.Forms.TextBox();
+            this.lblArama = new System.Windows.Forms.Label();
+
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).BeginInit();
             this.SuspendLayout();
+
             // 
-            // dataGridView1
+            // dgvUrunler
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(619, 66);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(867, 361);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dgvUrunler.AllowUserToAddRows = false;
+            this.dgvUrunler.AllowUserToDeleteRows = false;
+            this.dgvUrunler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvUrunler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUrunler.Location = new System.Drawing.Point(600, 60);
+            this.dgvUrunler.MultiSelect = false;
+            this.dgvUrunler.Name = "dgvUrunler";
+            this.dgvUrunler.ReadOnly = true;
+            this.dgvUrunler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvUrunler.Size = new System.Drawing.Size(850, 370);
+            this.dgvUrunler.TabIndex = 0;
+            this.dgvUrunler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+
             // 
-            // ekle
+            // btnEkle
             // 
-            this.ekle.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ekle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ekle.Location = new System.Drawing.Point(412, 305);
-            this.ekle.Name = "ekle";
-            this.ekle.Size = new System.Drawing.Size(172, 122);
-            this.ekle.TabIndex = 1;
-            this.ekle.Text = "EKLE";
-            this.ekle.UseVisualStyleBackColor = false;
-            this.ekle.Click += new System.EventHandler(this.ekle_Click_1);
+            this.btnEkle.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnEkle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnEkle.ForeColor = System.Drawing.Color.White;
+            this.btnEkle.Location = new System.Drawing.Point(410, 310);
+            this.btnEkle.Name = "btnEkle";
+            this.btnEkle.Size = new System.Drawing.Size(170, 60);
+            this.btnEkle.TabIndex = 6;
+            this.btnEkle.Text = "Ekle";
+            this.btnEkle.UseVisualStyleBackColor = false;
+            this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
+
             // 
-            // sil
+            // btnSil
             // 
-            this.sil.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.sil.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.sil.Location = new System.Drawing.Point(24, 305);
-            this.sil.Name = "sil";
-            this.sil.Size = new System.Drawing.Size(186, 122);
-            this.sil.TabIndex = 2;
-            this.sil.Text = "SİL";
-            this.sil.UseVisualStyleBackColor = false;
-            this.sil.Click += new System.EventHandler(this.sil_Click_1);
+            this.btnSil.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnSil.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnSil.ForeColor = System.Drawing.Color.White;
+            this.btnSil.Location = new System.Drawing.Point(30, 310);
+            this.btnSil.Name = "btnSil";
+            this.btnSil.Size = new System.Drawing.Size(170, 60);
+            this.btnSil.TabIndex = 7;
+            this.btnSil.Text = "Sil";
+            this.btnSil.UseVisualStyleBackColor = false;
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
+
             // 
-            // duzenle
+            // btnDuzenle
             // 
-            this.duzenle.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.duzenle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.duzenle.Location = new System.Drawing.Point(216, 305);
-            this.duzenle.Name = "duzenle";
-            this.duzenle.Size = new System.Drawing.Size(190, 122);
-            this.duzenle.TabIndex = 3;
-            this.duzenle.Text = "DÜZENLE";
-            this.duzenle.UseVisualStyleBackColor = false;
-            this.duzenle.Click += new System.EventHandler(this.duzenle_Click_1);
+            this.btnDuzenle.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnDuzenle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnDuzenle.ForeColor = System.Drawing.Color.White;
+            this.btnDuzenle.Location = new System.Drawing.Point(220, 310);
+            this.btnDuzenle.Name = "btnDuzenle";
+            this.btnDuzenle.Size = new System.Drawing.Size(170, 60);
+            this.btnDuzenle.TabIndex = 8;
+            this.btnDuzenle.Text = "Düzenle";
+            this.btnDuzenle.UseVisualStyleBackColor = false;
+            this.btnDuzenle.Click += new System.EventHandler(this.btnDuzenle_Click);
+
             // 
-            // label1
+            // lblUrunAdi
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.Location = new System.Drawing.Point(19, 60);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(134, 29);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "ÜRÜN ADİ";
+            this.lblUrunAdi.AutoSize = true;
+            this.lblUrunAdi.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblUrunAdi.Location = new System.Drawing.Point(25, 60);
+            this.lblUrunAdi.Name = "lblUrunAdi";
+            this.lblUrunAdi.Size = new System.Drawing.Size(85, 25);
+            this.lblUrunAdi.TabIndex = 9;
+            this.lblUrunAdi.Text = "Ürün Adı:";
+
             // 
-            // label2
+            // lblKategori
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(19, 101);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 29);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "KATEGORİ";
+            this.lblKategori.AutoSize = true;
+            this.lblKategori.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblKategori.Location = new System.Drawing.Point(25, 100);
+            this.lblKategori.Name = "lblKategori";
+            this.lblKategori.Size = new System.Drawing.Size(85, 25);
+            this.lblKategori.TabIndex = 10;
+            this.lblKategori.Text = "Kategori:";
+
             // 
-            // label3
+            // lblMiktar
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(19, 144);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 29);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "MİKTAR";
+            this.lblMiktar.AutoSize = true;
+            this.lblMiktar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblMiktar.Location = new System.Drawing.Point(25, 140);
+            this.lblMiktar.Name = "lblMiktar";
+            this.lblMiktar.Size = new System.Drawing.Size(73, 25);
+            this.lblMiktar.TabIndex = 11;
+            this.lblMiktar.Text = "Miktar:";
+
             // 
-            // label4
+            // lblFiyat
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.Location = new System.Drawing.Point(19, 189);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 29);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "FİYAT";
+            this.lblFiyat.AutoSize = true;
+            this.lblFiyat.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblFiyat.Location = new System.Drawing.Point(25, 180);
+            this.lblFiyat.Name = "lblFiyat";
+            this.lblFiyat.Size = new System.Drawing.Size(60, 25);
+            this.lblFiyat.TabIndex = 12;
+            this.lblFiyat.Text = "Fiyat:";
+
             // 
-            // label5
+            // lblKarOrani
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.Location = new System.Drawing.Point(19, 235);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(151, 29);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "KAR ORANİ";
+            this.lblKarOrani.AutoSize = true;
+            this.lblKarOrani.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblKarOrani.Location = new System.Drawing.Point(25, 220);
+            this.lblKarOrani.Name = "lblKarOrani";
+            this.lblKarOrani.Size = new System.Drawing.Size(98, 25);
+            this.lblKarOrani.TabIndex = 13;
+            this.lblKarOrani.Text = "Kar Oranı:";
+
             // 
-            // textBox1
+            // txtUrunAdi
             // 
-            this.textBox1.Location = new System.Drawing.Point(194, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(390, 22);
-            this.textBox1.TabIndex = 9;
+            this.txtUrunAdi.Location = new System.Drawing.Point(150, 60);
+            this.txtUrunAdi.Name = "txtUrunAdi";
+            this.txtUrunAdi.Size = new System.Drawing.Size(400, 27);
+            this.txtUrunAdi.TabIndex = 1;
+
             // 
-            // textBox2
+            // txtKategori
             // 
-            this.textBox2.Location = new System.Drawing.Point(194, 108);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(390, 22);
-            this.textBox2.TabIndex = 10;
+            this.txtKategori.Location = new System.Drawing.Point(150, 100);
+            this.txtKategori.Name = "txtKategori";
+            this.txtKategori.Size = new System.Drawing.Size(400, 27);
+            this.txtKategori.TabIndex = 2;
+
             // 
-            // textBox3
+            // txtMiktar
             // 
-            this.textBox3.Location = new System.Drawing.Point(194, 151);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(390, 22);
-            this.textBox3.TabIndex = 11;
+            this.txtMiktar.Location = new System.Drawing.Point(150, 140);
+            this.txtMiktar.Name = "txtMiktar";
+            this.txtMiktar.Size = new System.Drawing.Size(400, 27);
+            this.txtMiktar.TabIndex = 3;
+
             // 
-            // textBox4
+            // txtFiyat
             // 
-            this.textBox4.Location = new System.Drawing.Point(194, 196);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(390, 22);
-            this.textBox4.TabIndex = 12;
+            this.txtFiyat.Location = new System.Drawing.Point(150, 180);
+            this.txtFiyat.Name = "txtFiyat";
+            this.txtFiyat.Size = new System.Drawing.Size(400, 27);
+            this.txtFiyat.TabIndex = 4;
+
             // 
-            // textBox5
+            // txtKarOrani
             // 
-            this.textBox5.Location = new System.Drawing.Point(194, 235);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(390, 22);
-            this.textBox5.TabIndex = 13;
+            this.txtKarOrani.Location = new System.Drawing.Point(150, 220);
+            this.txtKarOrani.Name = "txtKarOrani";
+            this.txtKarOrani.Size = new System.Drawing.Size(400, 27);
+            this.txtKarOrani.TabIndex = 5;
+
             // 
-            // textBox6
+            // txtArama
             // 
-            this.textBox6.Location = new System.Drawing.Point(824, 25);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(390, 22);
-            this.textBox6.TabIndex = 14;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.txtArama.Location = new System.Drawing.Point(800, 20);
+            this.txtArama.Name = "txtArama";
+            this.txtArama.Size = new System.Drawing.Size(400, 27);
+            this.txtArama.TabIndex = 10;
+            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
+
             // 
-            // label6
+            // lblArama
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label6.Location = new System.Drawing.Point(647, 18);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(95, 29);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "Search";
+            this.lblArama.AutoSize = true;
+            this.lblArama.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblArama.Location = new System.Drawing.Point(700, 20);
+            this.lblArama.Name = "lblArama";
+            this.lblArama.Size = new System.Drawing.Size(72, 25);
+            this.lblArama.TabIndex = 14;
+            this.lblArama.Text = "Arama:";
+
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1498, 461);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.duzenle);
-            this.Controls.Add(this.sil);
-            this.Controls.Add(this.ekle);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(1480, 450);
+            this.Controls.Add(this.lblArama);
+            this.Controls.Add(this.txtArama);
+            this.Controls.Add(this.txtKarOrani);
+            this.Controls.Add(this.txtFiyat);
+            this.Controls.Add(this.txtMiktar);
+            this.Controls.Add(this.txtKategori);
+            this.Controls.Add(this.txtUrunAdi);
+            this.Controls.Add(this.lblKarOrani);
+            this.Controls.Add(this.lblFiyat);
+            this.Controls.Add(this.lblMiktar);
+            this.Controls.Add(this.lblKategori);
+            this.Controls.Add(this.lblUrunAdi);
+            this.Controls.Add(this.btnDuzenle);
+            this.Controls.Add(this.btnSil);
+            this.Controls.Add(this.btnEkle);
+            this.Controls.Add(this.dgvUrunler);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Stok Kontrol Sistemi";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button ekle;
-        private System.Windows.Forms.Button sil;
-        private System.Windows.Forms.Button duzenle;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView dgvUrunler;
+        private System.Windows.Forms.Button btnEkle;
+        private System.Windows.Forms.Button btnSil;
+        private System.Windows.Forms.Button btnDuzenle;
+        private System.Windows.Forms.Label lblUrunAdi;
+        private System.Windows.Forms.Label lblKategori;
+        private System.Windows.Forms.Label lblMiktar;
+        private System.Windows.Forms.Label lblFiyat;
+        private System.Windows.Forms.Label lblKarOrani;
+        private System.Windows.Forms.TextBox txtUrunAdi;
+        private System.Windows.Forms.TextBox txtKategori;
+        private System.Windows.Forms.TextBox txtMiktar;
+        private System.Windows.Forms.TextBox txtFiyat;
+        private System.Windows.Forms.TextBox txtKarOrani;
+        private System.Windows.Forms.TextBox txtArama;
+        private System.Windows.Forms.Label lblArama;
     }
 }
-
-
-/*
- @author  Mehmettilhann
- */
